@@ -39,7 +39,6 @@ else
   fi
 fi
 
-ABS_RUNNER_DIR=$(pwd)
 PROJECT_DIR=$(pwd)/project
 ENV_DIR=$(pwd)/env
 REQUIREMTNES=$(pwd)/project/requirements.yml
@@ -86,7 +85,7 @@ echo [4]Get collection name
 ansible-galaxy collection list -p $PROJECT_DIR/collection/ --format json > clist
 # keys=$(jq 'keys' clist)
 # key=$(cat clist |  jq -r '. | keys[]' | grep $PROJECT_DIR)
-key=$(cat clist |  jq 'keys' clist | grep $PROJECT_DIR)
+key=$(jq 'keys' clist | grep $PROJECT_DIR)
 key2=$(echo ${key%,*})
 collection=$(cat clist | jq '.'$key2'')
 col_name=$(echo $collection | jq -r '. | keys[]')
